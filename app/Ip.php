@@ -19,6 +19,6 @@ class Ip extends Model
 
     public function jail()
     {
-        return $this->hasOne(Ip::class, 'ip_id', 'id');
+        return $this->hasOne(Jail::class,  'ip_id', 'id');
     }
 }

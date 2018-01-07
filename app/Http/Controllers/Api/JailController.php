@@ -96,8 +96,28 @@ class JailController extends Controller
      */
     public function destroy($id)
     {
-        $ip = \App\Jail::findOrFail($id);
-        $ip->delete();
-        return [ 'success' => true ];
+        $jail = \App\Jail::findOrFail($id);
+        $res = $this->jailService->deleteJail(
+            $jail->hostname
+        );
+        if ($res['success']) {
+            $jail->delete();
+            return [ 'success' => true ];
+        }
+        return [ 'success' => false ];
+    }
+
+    public function toggleJail(Request $request, $id)
+    {
+        $status = $request->input('status');
+        $jail = \App\Jail::findOrFail($id);
+        $res = $this->jailService->toggleJail($jail->hostname, $status);
+        if ($res['success']) {
+            return [ 'success' => true ];
+        }
+        return response()->json([
+            'success' => false, 
+            'error' => isset($res['error']) ? $res['error'] : null,
+        ], 500);
     }
 }

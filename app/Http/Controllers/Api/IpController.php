@@ -17,7 +17,7 @@ class IpController extends Controller
      */
     public function index()
     {
-        return [ 'data' => \App\Ip::with('owner')->get() ];
+        return [ 'data' => \App\Ip::with(['owner', 'jail'])->get() ];
     }
 
     /**

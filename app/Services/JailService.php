@@ -63,4 +63,50 @@ class JailService
             ];
         }
     }
+
+    public function toggleJail($hostname, $status)
+    {
+        try {
+            $response = $this->client->request('POST', '/control', [
+                'json' => [
+                    'name' => $hostname,
+                    'action' => $status ? 'start' : 'stop',
+                ]
+            ]);
+            return [
+                'success' => true,
+            ];
+        } catch (\Exception $e) {
+            $response = $e->getResponse();
+            $responseBodyAsString = $response->getBody(true);
+            $res = json_decode($responseBodyAsString);
+            return [
+                'success' => false,
+                'error' => $res->message,
+            ];
+        }
+    }
+
+    public function deleteJail($hostname)
+    {
+        try {
+            $response = $this->client->request('POST', '/delete', [
+                'json' => [
+                    'name' => $hostname,
+                ]
+            ]);
+            return [
+                'success' => true,
+            ];
+        } catch (\Exception $e) {
+            $response = $e->getResponse();
+            $responseBodyAsString = $response->getBody(true);
+            $res = json_decode($responseBodyAsString);
+            return [
+                'success' => false,
+                'error' => $res->message,
+            ];
+        }
+    }
+
 }
