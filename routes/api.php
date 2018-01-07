@@ -24,4 +24,5 @@ Route::group(['namespace' => 'Api'], function () {
     Route::middleware('jwt.auth')->resource('/jail', 'JailController', ['except' => ['edit', 'create']]);
 
     Route::middleware('jwt.auth')->post('/control/jail/{id}', 'JailController@toggleJail');
+    Route::middleware('jwt.auth')->get('/host/status', 'JailController@getHostStatus');
 });

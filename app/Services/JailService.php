@@ -109,4 +109,23 @@ class JailService
         }
     }
 
+    public function getHostStatus()
+    {
+        try {
+            $response = $this->client->request('GET', '/status');
+            return [
+                'success' => true,
+                'data' => json_decode($response->getBody()),
+            ];
+        } catch (\Exception $e) {
+            $response = $e->getResponse();
+            $responseBodyAsString = $response->getBody(true);
+            $res = json_decode($responseBodyAsString);
+            return [
+                'success' => false,
+                'error' => $res->message,
+            ];
+        }
+    }
+
 }

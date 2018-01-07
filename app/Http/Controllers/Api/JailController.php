@@ -104,7 +104,10 @@ class JailController extends Controller
             $jail->delete();
             return [ 'success' => true ];
         }
-        return [ 'success' => false ];
+        return response()->json([
+            'success' => false, 
+            'error' => isset($res['error']) ? $res['error'] : null,
+        ], 500);
     }
 
     public function toggleJail(Request $request, $id)
@@ -114,6 +117,21 @@ class JailController extends Controller
         $res = $this->jailService->toggleJail($jail->hostname, $status);
         if ($res['success']) {
             return [ 'success' => true ];
+        }
+        return response()->json([
+            'success' => false, 
+            'error' => isset($res['error']) ? $res['error'] : null,
+        ], 500);
+    }
+
+    public function getHostStatus(Request $request)
+    {
+        $res = $jailsStatus = $this->jailService->getHostStatus();
+        if ($res['success']) {
+            return [ 
+                'success' => true,
+                'data' => $res['data'],
+            ];
         }
         return response()->json([
             'success' => false, 
