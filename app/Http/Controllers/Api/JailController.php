@@ -5,11 +5,20 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateJailRequest;
+use App\Services\JailService;
 use Auth;
 use JWTAuth;
+use GuzzleHttp\Client;
 
 class JailController extends Controller
 {
+    protected $jailService;
+
+    public function __construct(JailService $jailService)
+    {
+        $this->jailService = $jailService;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -17,7 +26,16 @@ class JailController extends Controller
      */
     public function index()
     {
-        return [ 'data' => \App\Jail::with(['owner', 'ip'])->get() ];
+        $jailsStatus = $this->jailService->getJailsStatus()['data'];
+        $jails = \App\Jail::with(['owner', 'ip'])->get();
+        $jails->each(function ($item, $key) use ($jailsStatus) {
+            foreach ($jailsStatus as $key => $value) {
+                if ($item['hostname'] === $value->name) {
+                    $item['status'] = $value->running ? 'running' : 'stopped';
+                }
+            }
+        });
+        return [ 'data' => $jails ];
     }
 
     /**
@@ -28,10 +46,23 @@ class JailController extends Controller
      */
     public function store(CreateJailRequest $request)
     {
-        $jail = new \App\Jail($request->only([ 'hostname', 'ip_id', 'quota', 'ssh_key' ]));
-        $jail->user_id = $request->user()->id;
-        $jail->save();
-        return [ 'date' => $jail ];
+        $ip = \App\Ip::findOrFail($request->input('ip_id'));
+        $res = $this->jailService->createJail(
+            $request->input('hostname'),
+            $ip->ip,
+            $request->input('quota'),
+            $request->input('ssh_key')
+        );
+        if ($res['success']) {
+            $jail = new \App\Jail($request->only([ 'hostname', 'ip_id', 'quota', 'ssh_key' ]));
+            $jail->user_id = $request->user()->id;
+            $jail->save();
+            return [ 'date' => $jail ];
+        }
+        return response()->json([
+            'success' => false, 
+            'error' => isset($res['error']) ? $res['error'] : null,
+        ], 500);
     }
 
     /**

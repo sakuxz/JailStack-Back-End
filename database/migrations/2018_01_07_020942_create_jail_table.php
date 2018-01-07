@@ -19,7 +19,7 @@ class CreateJailTable extends Migration
             $table->unsignedInteger('ip_id')->unique();
             $table->unsignedInteger('user_id');
             $table->tinyInteger('quota');
-            $table->string('ssh_key');
+            $table->text('ssh_key');
             $table->timestamps();
         });
     }
