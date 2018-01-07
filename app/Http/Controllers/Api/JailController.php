@@ -17,7 +17,7 @@ class JailController extends Controller
      */
     public function index()
     {
-        return [ 'data' => \App\Jail::with('owner')->get() ];
+        return [ 'data' => \App\Jail::with(['owner', 'ip'])->get() ];
     }
 
     /**
@@ -42,7 +42,7 @@ class JailController extends Controller
      */
     public function show($id)
     {
-        return [ 'data' => \App\Jail::with('owner')->findOrFail($id) ];
+        return [ 'data' => \App\Jail::with(['owner', 'ip'])->findOrFail($id) ];
     }
 
     /**
