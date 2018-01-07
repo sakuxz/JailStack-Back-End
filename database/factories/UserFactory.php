@@ -21,3 +21,18 @@ $factory->define(App\User::class, function (Faker $faker) {
         'remember_token' => str_random(10),
     ];
 });
+
+$factory->define(App\Jail::class, function (Faker $faker) {
+    return [
+        'hostname' => $faker->name,
+        'quota' => $faker->biasedNumberBetween($min = 1, $max = 50, $function = 'sqrt'),
+        'ssh_key' => str_random(50),
+    ];
+});
+
+$factory->define(App\Ip::class, function (Faker $faker) {
+    return [
+        'name' => $faker->name,
+        'ip' => $faker->ipv4,
+    ];
+});
