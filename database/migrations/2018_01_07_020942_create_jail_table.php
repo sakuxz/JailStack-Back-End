@@ -15,8 +15,8 @@ class CreateJailTable extends Migration
     {
         Schema::create('jails', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('hostname');
-            $table->unsignedInteger('ip_id');
+            $table->string('hostname')->unique();
+            $table->unsignedInteger('ip_id')->unique();
             $table->unsignedInteger('user_id');
             $table->tinyInteger('quota');
             $table->string('ssh_key');

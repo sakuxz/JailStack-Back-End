@@ -4,11 +4,11 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CreateIpRequest;
+use App\Http\Requests\CreateJailRequest;
 use Auth;
 use JWTAuth;
 
-class IpController extends Controller
+class JailController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +17,7 @@ class IpController extends Controller
      */
     public function index()
     {
-        return [ 'data' => \App\Ip::with('owner')->get() ];
+        return [ 'data' => \App\Jail::with('owner')->get() ];
     }
 
     /**
@@ -26,13 +26,12 @@ class IpController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CreateIpRequest $request)
+    public function store(CreateJailRequest $request)
     {
-        $ip = new \App\Ip($request->only([ 'name', 'ip' ]));
-        // echo var_dump(JWTAuth::parseToken()->authenticate());
-        $ip->user_id = $request->user()->id;
-        $ip->save();
-        return [ 'date' => $ip ];
+        $jail = new \App\Jail($request->only([ 'hostname', 'ip_id', 'quota', 'ssh_key' ]));
+        $jail->user_id = $request->user()->id;
+        $jail->save();
+        return [ 'date' => $jail ];
     }
 
     /**
@@ -43,7 +42,7 @@ class IpController extends Controller
      */
     public function show($id)
     {
-        return [ 'data' => \App\Ip::with('owner')->findOrFail($id) ];
+        return [ 'data' => \App\Jail::with('owner')->findOrFail($id) ];
     }
 
     /**
@@ -66,7 +65,7 @@ class IpController extends Controller
      */
     public function destroy($id)
     {
-        $ip = \App\Ip::findOrFail($id);
+        $ip = \App\Jail::findOrFail($id);
         $ip->delete();
         return [ 'success' => true ];
     }
