@@ -128,4 +128,46 @@ class JailService
         }
     }
 
+    public function takeSnapshot($hostname, $name)
+    {
+        try {
+            $response = $this->client->request('POST', '/snapshot', [
+                'json' => [
+                    'name' => $hostname,
+                    'snap' => $name,
+                ]
+            ]);
+            return [
+                'success' => true,
+            ];
+        } catch (\Exception $e) {
+            $response = $e->getResponse();
+            $responseBodyAsString = $response->getBody(true);
+            $res = json_decode($responseBodyAsString);
+            return [
+                'success' => false,
+                'error' => $res->message,
+            ];
+        }
+    }
+
+    public function getSnapshots()
+    {
+        try {
+            $response = $this->client->request('GET', '/snapshot');
+            return [
+                'success' => true,
+                'data' => json_decode($response->getBody()),
+            ];
+        } catch (\Exception $e) {
+            $response = $e->getResponse();
+            $responseBodyAsString = $response->getBody(true);
+            $res = json_decode($responseBodyAsString);
+            return [
+                'success' => false,
+                'error' => $res->message,
+            ];
+        }
+    }
+
 }

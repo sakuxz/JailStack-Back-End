@@ -126,7 +126,39 @@ class JailController extends Controller
 
     public function getHostStatus(Request $request)
     {
-        $res = $jailsStatus = $this->jailService->getHostStatus();
+        $res = $this->jailService->getHostStatus();
+        if ($res['success']) {
+            return [ 
+                'success' => true,
+                'data' => $res['data'],
+            ];
+        }
+        return response()->json([
+            'success' => false, 
+            'error' => isset($res['error']) ? $res['error'] : null,
+        ], 500);
+    }
+
+    public function takeSnapshot(Request $request)
+    {
+        $res = $this->jailService->takeSnapshot(
+            $request->input('hostname'),
+            $request->input('name')
+        );
+        if ($res['success']) {
+            return [ 
+                'success' => true,
+            ];
+        }
+        return response()->json([
+            'success' => false, 
+            'error' => isset($res['error']) ? $res['error'] : null,
+        ], 500);
+    }
+
+    public function getSnapshots(Request $request)
+    {
+        $res = $this->jailService->getSnapshots();
         if ($res['success']) {
             return [ 
                 'success' => true,

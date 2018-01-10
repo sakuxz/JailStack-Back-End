@@ -25,4 +25,7 @@ Route::group(['namespace' => 'Api'], function () {
 
     Route::middleware('jwt.auth')->post('/control/jail/{id}', 'JailController@toggleJail');
     Route::middleware('jwt.auth')->get('/host/status', 'JailController@getHostStatus');
+
+    Route::middleware('jwt.auth')->get('/snapshot', 'JailController@getSnapshots');
+    Route::middleware('jwt.auth')->post('/snapshot', 'JailController@takeSnapshot');
 });
