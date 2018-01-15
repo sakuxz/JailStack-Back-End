@@ -16,9 +16,9 @@ class TestTableSeeder extends Seeder
             $ip->user_id = $users[mt_rand(0, count($users) - 1)]->id;
             $ip->save();
         });
-        $jails = factory(App\Jail::class, 5)->make()->each(function ($jail) use ($ips, $users) {
+        $jails = factory(App\Jail::class, 5)->make()->each(function ($jail ,$i) use ($ips, $users) {
             $jail->user_id = $users[mt_rand(0, count($users) - 1)]->id;
-            $jail->ip_id = $ips[mt_rand(0, count($ips) - 1)]->id;
+            $jail->ip_id = $ips[$i]->id;
             $jail->save();
         });
     }
