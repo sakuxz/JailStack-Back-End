@@ -42,8 +42,9 @@ DB_PASSWORD=${DB_PASSWORD}\n\
 $(cat .env)" > .env
 
 RUN chown -R www-data:www-data storage /var/www/html \
-    && composer install --no-plugins --no-scripts --no-dev \
+    && composer install --optimize-autoloader --no-plugins --no-scripts --no-dev \
     && php artisan key:generate \
     && php artisan vendor:publish --provider="Tymon\JWTAuth\Providers\LaravelServiceProvider" \
     && php artisan jwt:secret -f \
+    && php artisan config:cache
     # && php artisan route:cache
