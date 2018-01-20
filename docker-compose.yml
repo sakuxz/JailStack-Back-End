@@ -12,7 +12,7 @@ services:
           - DB_USER=homestead
           - DB_PASSWORD=secret
       ports:
-        - 8000:80
+        - 8080:80
       networks:
         - backend
 
@@ -21,6 +21,8 @@ services:
         context: ./docker/php7.2-cli
       volumes:
         - ./:/var/www/html
+      ports:
+        - 8000:8000
       tty: true
       networks:
         - backend
