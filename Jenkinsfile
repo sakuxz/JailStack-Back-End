@@ -13,7 +13,8 @@ pipeline {
 cp docker/php7.2-cli/.env.development.example .env
 php artisan key:generate
 php artisan vendor:publish --provider="Tymon\\JWTAuth\\Providers\\LaravelServiceProvider"
-php artisan jwt:secret -f'''
+php artisan jwt:secret -f
+ls -al'''
       }
     }
     stage('test') {
@@ -24,7 +25,8 @@ php artisan jwt:secret -f'''
         
       }
       steps {
-        sh './vendor/bin/phpunit'
+        sh '''ls -al
+./vendor/bin/phpunit'''
       }
     }
   }
