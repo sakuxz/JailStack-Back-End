@@ -10,6 +10,9 @@ pipeline {
       steps {
         sh '''docker-compose down
 docker-compose build
+ls -al
+pwd
+docker-compose -v
 docker-compose run install
 '''
       }
