@@ -1,8 +1,8 @@
 pipeline {
   agent {
     docker {
-      image 'docker/compose:1.18.0'
       args '-v /var/run/docker.sock:/var/run/docker.sock'
+      image 'tmaier/docker-compose'
     }
     
   }
