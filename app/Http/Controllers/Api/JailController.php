@@ -60,7 +60,7 @@ class JailController extends Controller
             return [ 'date' => $jail ];
         }
         return response()->json([
-            'success' => false, 
+            'success' => false,
             'error' => isset($res['error']) ? $res['error'] : null,
         ], 500);
     }
@@ -105,7 +105,7 @@ class JailController extends Controller
             return [ 'success' => true ];
         }
         return response()->json([
-            'success' => false, 
+            'success' => false,
             'error' => isset($res['error']) ? $res['error'] : null,
         ], 500);
     }
@@ -119,7 +119,7 @@ class JailController extends Controller
             return [ 'success' => true ];
         }
         return response()->json([
-            'success' => false, 
+            'success' => false,
             'error' => isset($res['error']) ? $res['error'] : null,
         ], 500);
     }
@@ -128,13 +128,13 @@ class JailController extends Controller
     {
         $res = $this->jailService->getHostStatus();
         if ($res['success']) {
-            return [ 
+            return [
                 'success' => true,
                 'data' => $res['data'],
             ];
         }
         return response()->json([
-            'success' => false, 
+            'success' => false,
             'error' => isset($res['error']) ? $res['error'] : null,
         ], 500);
     }
@@ -146,12 +146,12 @@ class JailController extends Controller
             $request->input('name')
         );
         if ($res['success']) {
-            return [ 
+            return [
                 'success' => true,
             ];
         }
         return response()->json([
-            'success' => false, 
+            'success' => false,
             'error' => isset($res['error']) ? $res['error'] : null,
         ], 500);
     }
@@ -160,13 +160,13 @@ class JailController extends Controller
     {
         $res = $this->jailService->getSnapshots();
         if ($res['success']) {
-            return [ 
+            return [
                 'success' => true,
                 'data' => $res['data'],
             ];
         }
         return response()->json([
-            'success' => false, 
+            'success' => false,
             'error' => isset($res['error']) ? $res['error'] : null,
         ], 500);
     }
