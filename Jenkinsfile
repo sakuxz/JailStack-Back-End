@@ -1,5 +1,10 @@
 pipeline {
-  agent any
+  agent {
+    docker {
+      image 'docker/compose:1.18.0'
+    }
+    
+  }
   stages {
     stage('build') {
       steps {
@@ -11,7 +16,7 @@ docker-compose build
 ls -al
 pwd
 docker-compose -v
-docker-compose up install
+docker-compose run -v `pwd`:/var/www/html install
 '''
       }
     }
