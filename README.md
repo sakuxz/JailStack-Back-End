@@ -56,7 +56,6 @@ run with docker-compose
 ```sh
 docker-compose up -d php7.2-apache mysql
 
-# enter php7.2-apache and run db migration
-docker-compose exec php7.2-apache bash
-php artisan migrate
+# run db migration in php7.2-apache
+docker-compose exec php7.2-apache php artisan migrate
 ```
