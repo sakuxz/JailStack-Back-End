@@ -1,7 +1,7 @@
 pipeline {
   agent {
     docker {
-      image 'docker/compose'
+      image 'docker/compose:1.18.0'
     }
     
   }
