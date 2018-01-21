@@ -2,22 +2,29 @@ pipeline {
   agent any
   stages {
     stage('build') {
+      agent {
+        dockerfile {
+          filename 'docker/php7.2-cli/Dockerfile'
+        }
+        
+      }
       steps {
-        sh '''docker -v
-docker-compose -v
-
-docker-compose down
-docker-compose build
-ls -al
-pwd
-docker-compose -v
-docker-compose run install
-'''
+        sh '''composer install
+cp docker/php7.2-cli/.env.development.example .env
+php artisan key:generate
+php artisan vendor:publish --provider="Tymon\\JWTAuth\\Providers\\LaravelServiceProvider"
+php artisan jwt:secret -f'''
       }
     }
     stage('test') {
+      agent {
+        dockerfile {
+          filename 'docker/php7.2-cli/Dockerfile'
+        }
+        
+      }
       steps {
-        sh 'docker-compose run install ./vendor/bin/phpunit'
+        sh './vendor/bin/phpunit'
       }
     }
   }
