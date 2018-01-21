@@ -13,7 +13,7 @@ docker-compose build
 ls -al
 pwd
 docker-compose -v
-docker-compose run install
+docker-compose up -d install
 '''
       }
     }
