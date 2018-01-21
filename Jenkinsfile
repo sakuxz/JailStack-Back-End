@@ -17,7 +17,7 @@ docker-compose build
 ls -al
 pwd
 docker-compose -v
-docker-compose run -v `pwd`:/var/www/html install
+docker-compose run install
 '''
       }
     }
