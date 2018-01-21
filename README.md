@@ -8,7 +8,7 @@ https://laravel.com/
 
 local
 ```sh
-# install dependency package
+# install dependency packages
 composer install
 
 # copy .env.example to .env and edit some info on it, such as db name, db user, etc.
@@ -28,27 +28,11 @@ php artisan serve
 
 docker compose
 ```sh
-docker-compose up -d php7.2-cli mysql
-
-# enter php7.2-cli and execute following commands
-docker-compose exec php7.2-cli bash
-
-# install dependency package
-composer install
-
-# copy .env.example to .env and edit some info on it, such as db name, db user, etc.
-cp .env.example .env
-
-# generate APP_KEY and JWT_SECRET in .env
-php artisan key:generate
-php artisan vendor:publish --provider="Tymon\JWTAuth\Providers\LaravelServiceProvider"
-php artisan jwt:secret
-
-# db migration
-php artisan migrate
+# install packages & init config & db migration
+docker-compose run install
 
 # start a PHP's built-in development server for laravel
-php artisan serve --host 0.0.0.0
+docker-compose run -p 8000:8000 php7.2-cli php artisan serve --host 0.0.0.0
 ```
 
 ## Deploy
@@ -72,7 +56,15 @@ run with docker-compose
 ```sh
 docker-compose up -d php7.2-apache mysql
 
-# enter php7.2-apache and run db migration
-docker-compose exec php7.2-apache bash
-php artisan migrate
+# run db migration in php7.2-apache
+docker-compose exec php7.2-apache php artisan migrate
 ```
+
+## Reference
+
+ * https://docs.docker.com/compose/startup-order/
+ * https://www.gitbook.com/book/yeasy/docker_practice/details
+ * https://ithelp.ithome.com.tw/users/20102562/ironman/987
+ * http://blog.chengweichen.com/2016/03/docker-laravel.html
+ * https://github.com/laradock/laradock
+ * https://github.com/laraedit/laraedit-docker

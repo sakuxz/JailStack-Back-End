@@ -19,6 +19,10 @@ RUN docker-php-ext-install pdo_mysql \
 RUN curl -sS https://getcomposer.org/installer | php
 RUN mv composer.phar /usr/local/bin/composer
 
+# Install wait-for-it
+RUN git clone https://github.com/vishnubob/wait-for-it.git /wait-for-it \
+    && ln -s /wait-for-it/wait-for-it.sh /usr/local/bin/
+
 WORKDIR /var/www/html
 
 CMD bash
