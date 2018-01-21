@@ -8,7 +8,8 @@ pipeline {
   stages {
     stage('build') {
       steps {
-        sh '''docker-compose run install
+        sh '''docker-compose build
+docker-compose run install
 '''
       }
     }
