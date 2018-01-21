@@ -59,3 +59,12 @@ docker-compose up -d php7.2-apache mysql
 # run db migration in php7.2-apache
 docker-compose exec php7.2-apache php artisan migrate
 ```
+
+## Reference
+
+ * https://docs.docker.com/compose/startup-order/
+ * https://www.gitbook.com/book/yeasy/docker_practice/details
+ * https://ithelp.ithome.com.tw/users/20102562/ironman/987
+ * http://blog.chengweichen.com/2016/03/docker-laravel.html
+ * https://github.com/laradock/laradock
+ * https://github.com/laraedit/laraedit-docker
