@@ -49,7 +49,7 @@
        The following tags are equivalent to the command line arguments:
        -p
     -->
-    <arg name="report" value="summary"/>
+    <!-- <arg name="report" value="summary"/> -->
     <arg name="colors"/>
     <arg value="p"/>
 
