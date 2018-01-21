@@ -3,7 +3,10 @@ pipeline {
   stages {
     stage('build') {
       steps {
-        sh '''docker-compose down
+        sh '''docker -v
+docker-compose -v
+
+docker-compose down
 docker-compose build
 ls -al
 pwd
