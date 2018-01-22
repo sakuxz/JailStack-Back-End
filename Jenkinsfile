@@ -7,7 +7,12 @@ pipeline {
   }
   stages {
     stage('build') {
-      agent any
+      agent {
+        docker {
+          image 'docker/php7.2-cli/Dockerfile'
+        }
+        
+      }
       steps {
         sh '''composer install
 cp docker/php7.2-cli/.env.development.example .env
