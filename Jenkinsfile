@@ -18,7 +18,12 @@ ls -al'''
       }
     }
     stage('test') {
-      agent any
+      agent {
+        dockerfile {
+          filename 'docker/php7.2-cli/Dockerfile'
+        }
+        
+      }
       steps {
         sh '''ls -al
 ./vendor/bin/phpunit'''
