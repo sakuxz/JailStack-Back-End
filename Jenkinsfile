@@ -14,11 +14,12 @@ cp docker/php7.2-cli/.env.development.example .env
 php artisan key:generate
 php artisan vendor:publish --provider="Tymon\\JWTAuth\\Providers\\LaravelServiceProvider"
 php artisan jwt:secret -f
-ls -al'''
+ls -al
+pwd'''
         stash 'install'
         cache(caches: [
-                    [$class: 'ArbitraryFileCache', includes: 'vender/*', path: '${HOME}/'],
-                  ])
+                              [$class: 'ArbitraryFileCache', includes: 'vender/*', path: '${HOME}/'],
+                            ], maxCacheSize: 600)
         }
       }
       stage('test') {
