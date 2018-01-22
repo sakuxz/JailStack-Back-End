@@ -18,8 +18,17 @@ ls -al
 pwd'''
         stash 'install'
         cache(caches: [
-                                                                      [$class: 'ArbitraryFileCache', includes: 'vender/*'],
-                                                                    ], maxCacheSize: 600)
+                                                                                          [$class: 'ArbitraryFileCache', includes: 'vender/*'],
+                                                                                        ], maxCacheSize: 600) {
+            sh '''composer install
+cp docker/php7.2-cli/.env.development.example .env
+php artisan key:generate
+php artisan vendor:publish --provider="Tymon\\JWTAuth\\Providers\\LaravelServiceProvider"
+php artisan jwt:secret -f
+ls -al
+pwd'''
+          }
+          
         }
       }
       stage('test') {
