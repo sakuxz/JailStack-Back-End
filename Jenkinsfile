@@ -1,15 +1,10 @@
 pipeline {
-  agent {
-    dockerfile {
-      filename 'docker/php7.2-cli/Dockerfile'
-    }
-    
-  }
+  agent any
   stages {
     stage('build') {
       agent {
-        docker {
-          image 'docker/php7.2-cli/Dockerfile'
+        dockerfile {
+          filename 'docker/php7.2-cli/Dockerfile'
         }
         
       }
@@ -23,7 +18,12 @@ ls -al'''
       }
     }
     stage('test') {
-      agent any
+      agent {
+        docker {
+          image 'php'
+        }
+        
+      }
       steps {
         sh '''ls -al
 ./vendor/bin/phpunit'''
