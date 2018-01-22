@@ -16,7 +16,6 @@ cp docker/php7.2-cli/.env.development.example .env
 #php artisan jwt:secret -f
 touch ttttttttttttttttttttttttttttt
 ls -al'''
-        stash(name: 'tutu', includes: '.env')
       }
     }
     stage('test') {
