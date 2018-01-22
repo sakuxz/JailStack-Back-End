@@ -26,7 +26,6 @@ ls -al'''
         
       }
       steps {
-        unstash 'install'
         sh '''ls -al
 file ./vendor/bin/phpunit
 file ./vendor/phpunit/phpunit/phpunit
