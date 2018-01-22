@@ -20,8 +20,8 @@ ls -al'''
     }
     stage('test') {
       agent {
-        docker {
-          image 'php'
+        dockerfile {
+          filename 'docker/php7.2-cli/Dockerfile'
         }
         
       }
