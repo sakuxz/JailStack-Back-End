@@ -7,6 +7,7 @@ pipeline {
   }
   stages {
     stage('build') {
+      agent any
       steps {
         sh '''composer install
 cp docker/php7.2-cli/.env.development.example .env
@@ -17,6 +18,7 @@ ls -al'''
       }
     }
     stage('test') {
+      agent any
       steps {
         sh '''ls -al
 ./vendor/bin/phpunit'''
