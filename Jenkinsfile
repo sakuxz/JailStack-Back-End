@@ -29,6 +29,7 @@ ls -al'''
         unstash 'install'
         sh '''ls -al
 file ./vendor/bin/phpunit
+file ./vendor/phpunit/phpunit/phpunit
 ./vendor/bin/phpunit'''
       }
     }
