@@ -18,8 +18,8 @@ ls -al
 pwd'''
         stash 'install'
         cache(caches: [
-                                                            [$class: 'ArbitraryFileCache', includes: 'vender/*'],
-                                                          ], maxCacheSize: 600)
+                                                                      [$class: 'ArbitraryFileCache', includes: 'vender/*'],
+                                                                    ], maxCacheSize: 600)
         }
       }
       stage('test') {
