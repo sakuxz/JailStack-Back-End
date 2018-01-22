@@ -9,7 +9,7 @@ pipeline {
         
       }
       steps {
-        cache(caches: [[$class: 'ArbitraryFileCache', includes: 'vender/*',  path: '`pwd`']], maxCacheSize: 600) {
+        cache(caches: [[$class: 'ArbitraryFileCache', includes: 'vender/*',  path: './']], maxCacheSize: 600) {
           sh '''composer install
 cp docker/php7.2-cli/.env.development.example .env
 php artisan key:generate
