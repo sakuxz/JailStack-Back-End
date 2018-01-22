@@ -1,5 +1,10 @@
 pipeline {
-  agent any
+  agent {
+    dockerfile {
+      filename 'docker/php7.2-cli/Dockerfile'
+    }
+    
+  }
   stages {
     stage('build') {
       agent {
