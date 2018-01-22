@@ -15,6 +15,7 @@ cp docker/php7.2-cli/.env.development.example .env
 # php artisan vendor:publish --provider="Tymon\\JWTAuth\\Providers\\LaravelServiceProvider"
 # php artisan jwt:secret -f
 ls -al'''
+        stash(excludes: '.env', name: 'tutu')
       }
     }
     stage('test') {
@@ -25,6 +26,7 @@ ls -al'''
         
       }
       steps {
+        unstash 'tutu'
         sh '''ls -al
 # ./vendor/bin/phpunit'''
       }
