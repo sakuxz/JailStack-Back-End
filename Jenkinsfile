@@ -16,22 +16,25 @@ php artisan vendor:publish --provider="Tymon\\JWTAuth\\Providers\\LaravelService
 php artisan jwt:secret -f
 ls -al'''
         stash 'install'
-      }
-    }
-    stage('test') {
-      agent {
-        dockerfile {
-          filename 'docker/php7.2-cli/Dockerfile'
+        cache(caches: [
+                    [$class: 'ArbitraryFileCache', includes: 'vender/*', path: '${HOME}/'],
+                  ])
         }
-        
       }
-      steps {
-        unstash 'install'
-        sh '''ls -al
+      stage('test') {
+        agent {
+          dockerfile {
+            filename 'docker/php7.2-cli/Dockerfile'
+          }
+          
+        }
+        steps {
+          unstash 'install'
+          sh '''ls -al
 file ./vendor/bin/phpunit
 file ./vendor/phpunit/phpunit/phpunit
 php ./vendor/bin/phpunit'''
+        }
       }
     }
   }
-}
