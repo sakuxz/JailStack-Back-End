@@ -1,7 +1,7 @@
 pipeline {
   agent {
-    docker {
-      image 'docker/php7.2-cli/Dockerfile'
+    dockerfile {
+      filename 'docker/php7.2-cli/Dockerfile'
     }
     
   }
