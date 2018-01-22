@@ -18,7 +18,12 @@ ls -al'''
       }
     }
     stage('test') {
-      agent any
+      agent {
+        docker {
+          image 'php'
+        }
+        
+      }
       steps {
         sh '''ls -al
 ./vendor/bin/phpunit'''
