@@ -1,13 +1,13 @@
 pipeline {
-  agent any
+  agent {
+    dockerfile {
+      filename 'docker/php7.2-cli/Dockerfile'
+    }
+    
+  }
   stages {
     stage('build') {
-      agent {
-        dockerfile {
-          filename 'docker/php7.2-cli/Dockerfile'
-        }
-        
-      }
+      agent any
       steps {
         sh '''composer install
 cp docker/php7.2-cli/.env.development.example .env
@@ -18,12 +18,7 @@ ls -al'''
       }
     }
     stage('test') {
-      agent {
-        dockerfile {
-          filename 'docker/php7.2-cli/Dockerfile'
-        }
-        
-      }
+      agent any
       steps {
         sh '''ls -al
 ./vendor/bin/phpunit'''
