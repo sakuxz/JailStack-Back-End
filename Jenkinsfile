@@ -16,7 +16,8 @@ php artisan key:generate
 php artisan vendor:publish --provider="Tymon\\JWTAuth\\Providers\\LaravelServiceProvider"
 php artisan jwt:secret -f
 ls -al
-pwd'''
+pwd
+echo ${PWD}'''
         }
         
         stash 'install'
