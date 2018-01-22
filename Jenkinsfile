@@ -30,7 +30,7 @@ ls -al'''
         sh '''ls -al
 file ./vendor/bin/phpunit
 file ./vendor/phpunit/phpunit/phpunit
-./vendor/bin/phpunit'''
+php ./vendor/bin/phpunit'''
       }
     }
   }
