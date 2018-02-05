@@ -36,7 +36,7 @@ services:
         - backend
       depends_on:
         - mysql
-      command: ["wait-for-it.sh", "mysql:3306", "-t", "60", "--", docker/php7.2-cli/init.sh"]
+      command: ["wait-for-it.sh", "mysql:3306", "-t", "60", "--", "docker/php7.2-cli/init.sh"]
 
     mysql:
       image: mysql:8.0.3
